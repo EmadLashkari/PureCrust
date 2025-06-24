@@ -37,7 +37,7 @@ export default function Hero() {
         <RandomSplit tl={timeline} />
         <FadeToUp tl={timeline} />
       </div>
-      <IntroImage tl={timeline} />
+      <IntroImage />
     </section>
   );
 }

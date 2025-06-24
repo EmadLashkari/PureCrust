@@ -2,7 +2,7 @@
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import gsap from "gsap";
-export default function IntroImage({ tl }: { tl: GSAPTimeline }) {
+export default function IntroImage() {
   useGSAP(() => {
     gsap.set("#container", {
       xPercent: 100,
