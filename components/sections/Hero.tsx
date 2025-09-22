@@ -26,6 +26,7 @@ export default function Hero() {
         stagger: 2,
       });
     }
+
     const master = gsap.timeline();
     master
       .add(transitionRef.current!.animate())
