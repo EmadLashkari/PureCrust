@@ -4,44 +4,15 @@ import Image from "next/image";
 import gsap from "gsap";
 export default function IntroImage() {
   useGSAP(() => {
-    // gsap.set("#container", {
-    //   xPercent: 100,
-    // });
-    // gsap.to("#container", {
-    //   delay: 2,
-    //   xPercent: 0,
-    // });
-    // gsap.from("#first-mask", {
-    //   delay: 2.1,
-    //   duration: 1.5,
-    //   // borderRadius: "0% 30% 30% 0%",
-    //   width: "100%",
-    //   stagger: 0,
-    //   ease: "back.inOut",
-    // });
-    // gsap.from("#sec-mask", {
-    //   delay: 2.2,
-    //   duration: 1.5,
-    //   width: "100%",
-    //   // borderRadius: "0% 20% 20% 0%",
-    //   stagger: 0,
-    //   ease: "back.inOut",
-    // });
-    // gsap.from("#third-mask", {
-    //   delay: 2.3,
-    //   duration: 1.5,
-    //   width: "100%",
-    //   stagger: 0,
-    //   ease: "back.inOut",
-    // });
     gsap.from(".fade-img", {
       width: "100%",
-      height: 110,
-      delay: 2.4,
-      duration: 1,
+      yPercent: 100,
+      height: 50,
+      delay: 4.4,
+      duration: 3,
       // scale: 0.97,
       stagger: 0,
-      ease: "power3.inOut",
+      ease: "expo.out",
       // filter: "blur(3px)",
     });
   }, {});
