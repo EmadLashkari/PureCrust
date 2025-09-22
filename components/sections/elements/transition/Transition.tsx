@@ -75,7 +75,7 @@ const TransitionAnim = forwardRef<TransitionRef>((props, ref) => {
           id="first-text"
           className="test text-4xl lg:text-9xl text-white absolute z-50 left-0 lg:left-10 bottom-10"
         >
-          UNFORGATBLE
+          UNFORGETTABLE
         </h2>
       </div>
       <div
@@ -86,7 +86,7 @@ const TransitionAnim = forwardRef<TransitionRef>((props, ref) => {
           id="sec-text"
           className="test text-4xl lg:text-9xl text-white absolute z-50 left-0 lg:left-10 bottom-10"
         >
-          DELISIOS
+          DELICIOUS
         </h2>
       </div>
       <div
