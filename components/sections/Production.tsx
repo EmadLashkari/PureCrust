@@ -1,6 +1,6 @@
 "use client";
 import gsap from "gsap";
-import { ContextSafeFunc, useGSAP } from "@gsap/react";
+import { useGSAP } from "@gsap/react";
 import { ScrollSmoother, ScrollTrigger, SplitText } from "gsap/all";
 import Image from "next/image";
 import { Inter } from "next/font/google";
@@ -11,6 +11,14 @@ const InterFont = Inter({
 
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
 
+const Products: { id: number; title: string; imgSrc: string }[] = [
+  { id: 0, title: "Bake-Off Bonanza", imgSrc: "/img/mae-mu.jpg" },
+  { id: 2, title: "Sweet Sensations", imgSrc: "/img/bake.png" },
+  { id: 3, title: "Taste of the Oven", imgSrc: "/img/mae-mu.jpg" },
+  { id: 4, title: "Baked Bliss", imgSrc: "/img/bake.png" },
+  { id: 5, title: "Cookie Connoisseur Challenge", imgSrc: "/img/mae-mu.jpg" },
+];
+
 export default function Production() {
   // const container = useRef(null);
 
@@ -19,9 +27,12 @@ export default function Production() {
       type: "lines",
       mask: "lines",
     });
-    gsap.set(".popup", {
-      opacity: 0,
+    gsap.set(".img-init", {
+      scale: 0,
       autoAlpha: 0,
+      position: "fixed",
+      top: 0,
+      left: 0,
     });
 
     const productionTl = gsap.timeline({
@@ -30,7 +41,7 @@ export default function Production() {
         start: "top 80%",
         end: "center 60%",
         scrub: 3,
-        markers: true,
+        markers: false,
       },
     });
 
@@ -43,48 +54,67 @@ export default function Production() {
     });
   });
 
-  const popUpAnimation = contextSafe(() => {
-    gsap.to(".popup", {
-      opacity: 1,
-      autoAlpha: 1,
-    });
-  });
-  const inversePopupAnimation = contextSafe(() => {
-    gsap.to(".popup", {
-      opacity: 0,
-    });
-  });
+  const popUpAnimation = contextSafe(
+    (index: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      console.log("animation played ", index, e);
+
+      const setX = gsap.quickSetter(`.popup-${index}`, "x", "px");
+      const setY = gsap.quickSetter(`.popup-${index}`, "y", "px");
+
+      setX(e.pageX - 100);
+      setY(e.pageY - 100);
+
+      gsap.to(`.popup-${index}`, {
+        autoAlpha: 1,
+        scale: 1,
+        opacity: 1,
+        visibility: "visible",
+      });
+    }
+  );
+  const inversePopupAnimation = contextSafe(
+    (index: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      gsap.to(`.popup-${index}`, {
+        opacity: 0,
+        autoAlpha: 0,
+        scale: 0,
+      });
+    }
+  );
   return (
     <section className="prod-container relative w-full  justify-around items-center overflow-hidden">
       <article className="py-24 px-5 bg-pinky ">
-        {/* <Image
-        className="prod-img md:float-left  rounded-2xl w-full"
-        id="prod-img"
-        src={"/img/mae-mu.jpg"}
-        width={200}
-        height={200}
-        alt="bakery image"
-      /> */}
-        <Image
-          className="popup absolute left-1/6 top-0 opacity-0 z-50"
-          src={"/img/heather-barnes.jpg"}
-          alt="bakery"
-          width={300}
-          height={600}
-        />
+        {Products.map((item, index) => (
+          <Image
+            key={item.title}
+            className={`img-init rounded-lg pointer-events-none popup-${index} z-50`}
+            src={item.imgSrc}
+            width={200}
+            height={200}
+            alt="bakery image"
+          />
+        ))}
         <div
-          className={`${InterFont.className} text-cake prodText text-4xl/tight lg:text-5xl/tight py-5 text-center flex flex-col gap-20`}
+          className={`${InterFont.className} text-cake prodText text-4xl/tight lg:text-5xl/tight py-5 text-center flex flex-col gap-10`}
         >
-          <div
-            onMouseEnter={popUpAnimation}
-            onMouseLeave={inversePopupAnimation}
-          >
-            Bake-Off Bonanza
-          </div>
-          <div>Sweet Sensations</div>
-          <div>Taste of the Oven</div>
-          <div>Baked Bliss</div>
-          <div>Cookie Connoisseur Challenge</div>
+          {Products.map((item, index) => (
+            <div
+              className={`p-4`}
+              key={item.title}
+              onMouseEnter={(e) => popUpAnimation(index, e)}
+              onMouseLeave={(e) => inversePopupAnimation(index, e)}
+              onMouseMove={(e) => {
+                gsap.to(`.popup-${index}`, {
+                  x: e.pageX - 100,
+                  y: e.pageY - 100,
+                  duration: 2, // shorter duration makes it more responsive
+                  ease: "power2.out",
+                });
+              }}
+            >
+              {item.title}
+            </div>
+          ))}
         </div>
       </article>
     </section>
