@@ -9,6 +9,7 @@ import { Alfa_Slab_One } from "next/font/google";
 
 const alphafont = Alfa_Slab_One({
   weight: "400",
+  subsets: ["latin"],
 });
 
 const TransitionAnim = forwardRef<TransitionRef>((props, ref) => {

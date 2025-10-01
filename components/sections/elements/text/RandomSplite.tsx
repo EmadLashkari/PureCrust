@@ -4,11 +4,12 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { forwardRef, useImperativeHandle } from "react";
-import { Alfa_Slab_One } from "next/font/google";
+// import { Alfa_Slab_One } from "next/font/google";
 
-const alphafont = Alfa_Slab_One({
-  weight: "400",
-});
+// const alphafont = Alfa_Slab_One({
+//   weight: "400",
+//   subsets: ["latin"],
+// });
 
 // Use forwardRef with proper typing
 const RandomSplit = forwardRef<RandomSplitRef>((props, ref) => {

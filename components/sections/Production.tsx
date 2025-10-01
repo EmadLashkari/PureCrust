@@ -7,6 +7,7 @@ import { Inter } from "next/font/google";
 
 const InterFont = Inter({
   weight: "600",
+  subsets: ["latin"],
 });
 
 gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
@@ -72,15 +73,13 @@ export default function Production() {
       });
     }
   );
-  const inversePopupAnimation = contextSafe(
-    (index: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-      gsap.to(`.popup-${index}`, {
-        opacity: 0,
-        autoAlpha: 0,
-        scale: 0,
-      });
-    }
-  );
+  const inversePopupAnimation = contextSafe((index: number) => {
+    gsap.to(`.popup-${index}`, {
+      opacity: 0,
+      autoAlpha: 0,
+      scale: 0,
+    });
+  });
   return (
     <section className="prod-container relative w-full  justify-around items-center overflow-hidden">
       <article className="py-24 px-5 bg-pinky ">
@@ -102,7 +101,7 @@ export default function Production() {
               className={`p-4`}
               key={item.title}
               onMouseEnter={(e) => popUpAnimation(index, e)}
-              onMouseLeave={(e) => inversePopupAnimation(index, e)}
+              onMouseLeave={() => inversePopupAnimation(index)}
               onMouseMove={(e) => {
                 gsap.to(`.popup-${index}`, {
                   x: e.pageX - 100,
